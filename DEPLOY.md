@@ -1,63 +1,38 @@
-# Deploy do Personal OS
+# Deploy do Personal OS no EasyPanel
 
-O MVP foi preparado para rodar no servidor atual usando Docker, reaproveitando o Supabase, n8n e Cloudflare Tunnel já existentes.
+O projeto foi preparado para subir diretamente pelo EasyPanel usando o repositório do GitHub.
 
-## 1. Clonar o projeto
+## Criar o App
 
-```bash
-git clone https://github.com/desenvoltoo/personal-os.git
-cd personal-os
-```
+No EasyPanel:
 
-## 2. Criar o arquivo `.env`
+1. Crie um novo **App**.
+2. Escolha **GitHub** como fonte.
+3. Selecione o repositório `desenvoltoo/personal-os`.
+4. Branch: `main`.
+5. Build method: **Dockerfile**.
+6. Dockerfile path: `Dockerfile`.
+7. Porta interna do container: `80`.
+8. Faça o primeiro deploy.
 
-```bash
-cp .env.example .env
-```
+Para o primeiro modelo visual não é necessário configurar Supabase, n8n ou IA. A interface sobe sozinha.
 
-Preencha somente o que for necessário para o ambiente atual. Para visualizar o primeiro modelo, a interface web não depende da IA.
+## Domínio
 
-## 3. Subir com Docker
-
-```bash
-docker compose up -d --build
-```
-
-Serviços padrão:
-
-- Web: porta `8080`
-- API: porta `3333`
-
-## 4. Cloudflare Tunnel
-
-No túnel já existente, crie um hostname apontando para:
+Depois do deploy, adicione o domínio/subdomínio no próprio EasyPanel. Como o DNS já está no Cloudflare, use o hostname que você quiser, por exemplo:
 
 ```text
-http://localhost:8080
+os.seudominio.com
 ```
 
-Exemplo:
+Não é necessário clonar o repositório manualmente nem executar `docker compose` no servidor.
 
-```text
-os.seudominio.com -> http://localhost:8080
-```
+## Atualizações
 
-## 5. Atualizar depois de novos commits
-
-```bash
-git pull origin main
-docker compose up -d --build
-```
+Sempre que houver novos commits na branch `main`, basta fazer um novo deploy/redeploy pelo EasyPanel. Se o auto-deploy do GitHub estiver habilitado no App, os novos commits podem ser publicados automaticamente.
 
 ## Primeiro modelo
 
-A primeira tela é um dashboard único e responsivo com:
+A primeira tela é um dashboard único e responsivo com espaços para empresas, trabalho/gestão, projetos externos e pessoal, além de pesquisa, tarefas, documentos, notas, itens recentes e acesso ao assistente de IA.
 
-- espaços para empresas, trabalho/gestão, projetos externos e pessoal;
-- pesquisa global;
-- acesso a tarefas, documentos e notas;
-- itens recentes;
-- visão rápida de pendências;
-- assistente de IA sob demanda.
-
-A IA não executa alterações de forma autônoma. Ações como organizar, mover ou editar conteúdo só deverão ocorrer mediante comando explícito do usuário e, para operações sensíveis, com confirmação.
+A IA não executa mudanças por conta própria. Ela poderá organizar, mover ou editar conteúdo quando houver um comando explícito do usuário. Operações sensíveis poderão exigir confirmação antes da execução.
