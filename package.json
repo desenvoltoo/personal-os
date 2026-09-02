@@ -2,15 +2,11 @@
   "name": "personal-os",
   "private": true,
   "version": "0.1.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*"],
   "scripts": {
     "dev": "concurrently \"npm run dev -w @personal-os/api\" \"npm run dev -w @personal-os/web\"",
-    "build": "npm run build -w @personal-os/shared && npm run build -w @personal-os/api && npm run build -w @personal-os/web",
-    "start": "npm run start -w @personal-os/api",
-    "typecheck": "npm run typecheck -w @personal-os/shared && npm run typecheck -w @personal-os/api && npm run typecheck -w @personal-os/web"
+    "build": "npm run build -w @personal-os/api && npm run build -w @personal-os/web",
+    "typecheck": "npm run typecheck -w @personal-os/api && npm run typecheck -w @personal-os/web"
   },
   "devDependencies": {
     "concurrently": "^9.0.0",
